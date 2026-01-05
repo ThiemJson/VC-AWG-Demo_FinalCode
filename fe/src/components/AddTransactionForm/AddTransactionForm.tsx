@@ -270,7 +270,7 @@ const AddTransactionForm: React.FC<AddTransactionFormProps> = ({ onSuccess }) =>
                 onChange={(e) => setType(e.target.value as 'Revenue' | 'Expense')}
                 className="mr-2"
               />
-              <span className="text-gray-700 dark:text-gray-300">Thu nhập (Revenue)</span>
+              <span className="text-gray-700 dark:text-gray-300">Revenue</span>
             </label>
             <label className="flex items-center">
               <input
@@ -280,7 +280,7 @@ const AddTransactionForm: React.FC<AddTransactionFormProps> = ({ onSuccess }) =>
                 onChange={(e) => setType(e.target.value as 'Revenue' | 'Expense')}
                 className="mr-2"
               />
-              <span className="text-gray-700 dark:text-gray-300">Chi tiêu (Expense)</span>
+              <span className="text-gray-700 dark:text-gray-300">Expense</span>
             </label>
           </div>
         </div>
@@ -349,10 +349,10 @@ const AddTransactionForm: React.FC<AddTransactionFormProps> = ({ onSuccess }) =>
             onClick={() => navigate('/transactions')}
             disabled={isLoading}
           >
-            Hủy
+            Cancel
           </Button>
           <Button type="submit" variant="primary" isLoading={isLoading}>
-            Lưu
+            Save
           </Button>
         </div>
       </form>

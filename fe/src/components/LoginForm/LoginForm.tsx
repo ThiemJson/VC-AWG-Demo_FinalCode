@@ -19,11 +19,11 @@ const LoginForm: React.FC = () => {
   const validateEmail = (email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!email.trim()) {
-      setEmailError('Email không được để trống')
+      setEmailError('Email address cannot be left blank.')
       return false
     }
     if (!emailRegex.test(email)) {
-      setEmailError('Email không hợp lệ')
+      setEmailError('Email is invalid.')
       return false
     }
     setEmailError('')
@@ -32,7 +32,7 @@ const LoginForm: React.FC = () => {
 
   const validatePassword = (password: string): boolean => {
     if (!password.trim()) {
-      setPasswordError('Mật khẩu không được để trống')
+      setPasswordError('Password cannot be left blank.')
       return false
     }
     setPasswordError('')
@@ -74,9 +74,9 @@ const LoginForm: React.FC = () => {
       navigate('/')
     } catch (err: any) {
       if (err.response?.status === 401) {
-        setError('Email hoặc mật khẩu không đúng.')
+        setError('Email or password is incorrect.')
       } else {
-        setError(err.response?.data?.message || err.message || 'Đăng nhập thất bại. Vui lòng thử lại.')
+        setError(err.response?.data?.message || err.message || 'Login failed. Please try again.')
       }
     } finally {
       setIsLoading(false)
@@ -229,7 +229,7 @@ const LoginForm: React.FC = () => {
                           d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                         />
                       </svg>
-                      Đang xử lý...
+                      Processing...
                     </span>
                   ) : (
                     'Login'

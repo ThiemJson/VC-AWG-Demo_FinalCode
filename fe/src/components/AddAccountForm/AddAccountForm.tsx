@@ -40,16 +40,16 @@ const AddAccountForm: React.FC<AddAccountFormProps> = ({ onSuccess }) => {
     const newErrors: typeof errors = {}
 
     if (!bankName.trim()) {
-      newErrors.bank_name = 'Tên ngân hàng không được để trống'
+      newErrors.bank_name = 'The bank name cannot be left blank.'
     }
 
     if (!accountNumberFull.trim()) {
-      newErrors.account_number_full = 'Số tài khoản không được để trống'
+      newErrors.account_number_full = 'The account number cannot be left blank.'
     }
 
     const balanceNum = parseFloat(balance)
     if (isNaN(balanceNum) || balanceNum < 0) {
-      newErrors.balance = 'Số dư phải là một số và không được âm'
+      newErrors.balance = 'The balance must be a valid number and cannot be negative'
     }
 
     setErrors(newErrors)
@@ -81,7 +81,7 @@ const AddAccountForm: React.FC<AddAccountFormProps> = ({ onSuccess }) => {
 
       // Success handling
       // 1. Show toast notification
-      showToast('Thêm tài khoản thành công', 'success')
+      showToast('Account added successfully', 'success')
 
       // 2. Navigate to accounts list after a short delay to show toast
       setTimeout(() => {
@@ -101,11 +101,11 @@ const AddAccountForm: React.FC<AddAccountFormProps> = ({ onSuccess }) => {
 
         if (status === 409) {
           setErrors({
-            general: 'Tài khoản này đã tồn tại trong danh sách của bạn.',
+            general: 'This account already exists in your list.',
           })
         } else if (status === 500) {
           setErrors({
-            general: 'Không thể thêm tài khoản lúc này. Vui lòng thử lại sau.',
+            general: 'Unable to add account at this time. Please try again later.',
           })
         } else if (status === 400) {
           // Validation errors from backend
@@ -113,11 +113,11 @@ const AddAccountForm: React.FC<AddAccountFormProps> = ({ onSuccess }) => {
           if (errorData.message) {
             if (Array.isArray(errorData.message)) {
               errorData.message.forEach((msg: string) => {
-                if (msg.includes('bank_name') || msg.includes('ngân hàng')) {
+                if (msg.includes('bank_name') || msg.includes('bank')) {
                   validationErrors.bank_name = msg
-                } else if (msg.includes('account_number_full') || msg.includes('tài khoản')) {
+                } else if (msg.includes('account_number_full') || msg.includes('account number')) {
                   validationErrors.account_number_full = msg
-                } else if (msg.includes('balance') || msg.includes('số dư')) {
+                } else if (msg.includes('balance') || msg.includes('balance')) {
                   validationErrors.balance = msg
                 }
               })
@@ -128,12 +128,12 @@ const AddAccountForm: React.FC<AddAccountFormProps> = ({ onSuccess }) => {
           setErrors(validationErrors)
         } else {
           setErrors({
-            general: errorData.message || 'Đã xảy ra lỗi. Vui lòng thử lại sau.',
+            general: errorData.message || 'An error has occurred. Please try again later.',
           })
         }
       } else {
         setErrors({
-          general: 'Đã xảy ra lỗi. Vui lòng thử lại sau.',
+          general: 'An error has occurred. Please try again later.',
         })
       }
     }
@@ -142,7 +142,7 @@ const AddAccountForm: React.FC<AddAccountFormProps> = ({ onSuccess }) => {
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
       <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-        Thêm Tài Khoản Mới
+        Add New Account
       </h2>
 
       {errors.general && (
@@ -154,19 +154,19 @@ const AddAccountForm: React.FC<AddAccountFormProps> = ({ onSuccess }) => {
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Bank Name */}
         <Input
-          label="Ngân hàng"
+          label="Bank"
           type="text"
           value={bankName}
           onChange={(e) => setBankName(e.target.value)}
           error={errors.bank_name}
-          placeholder="Ví dụ: TPBank"
+          placeholder="Example: TPBank"
           required
         />
 
         {/* Account Type */}
         <div className="w-full">
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Loại tài khoản
+            Account Type
           </label>
           <select
             value={accountType}
@@ -192,28 +192,28 @@ const AddAccountForm: React.FC<AddAccountFormProps> = ({ onSuccess }) => {
 
         {/* Branch Name */}
         <Input
-          label="Chi nhánh (Tùy chọn)"
+          label="Branch (Optional)"
           type="text"
           value={branchName}
           onChange={(e) => setBranchName(e.target.value)}
           error={errors.branch_name}
-          placeholder="Ví dụ: Quận 4"
+          placeholder="Example: District 4"
         />
 
         {/* Account Number Full */}
         <Input
-          label="Số tài khoản đầy đủ"
+          label="Full Account Number"
           type="text"
           value={accountNumberFull}
           onChange={(e) => setAccountNumberFull(e.target.value)}
           error={errors.account_number_full}
-          placeholder="Ví dụ: 9704221122334455667"
+          placeholder="Example: 9704221122334455667"
           required
         />
 
         {/* Balance */}
         <Input
-          label="Số dư khởi tạo"
+          label="Initial Balance"
           type="number"
           value={balance}
           onChange={(e) => setBalance(e.target.value)}
@@ -232,10 +232,10 @@ const AddAccountForm: React.FC<AddAccountFormProps> = ({ onSuccess }) => {
             onClick={() => navigate('/accounts')}
             disabled={isLoading}
           >
-            Hủy
+            Cancel
           </Button>
           <Button type="submit" variant="primary" isLoading={isLoading}>
-            Thêm tài khoản
+            Add Account
           </Button>
         </div>
       </form>

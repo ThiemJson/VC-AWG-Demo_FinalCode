@@ -51,7 +51,7 @@ const DeleteAccountModal: React.FC<DeleteAccountModalProps> = ({
         onClose()
 
         // 2. Show success toast
-        showToast('Đã xóa tài khoản thành công.', 'success')
+        showToast('Account deleted successfully.', 'success')
 
         // 3. Call onSuccess callback to refresh account list
         if (onSuccess) {
@@ -71,19 +71,19 @@ const DeleteAccountModal: React.FC<DeleteAccountModalProps> = ({
             errorData.message || 'Account not found or not owned by current user',
           )
         } else if (status === 403) {
-          setError('Bạn không có quyền thực hiện thao tác này.')
+          setError('You do not have permission to perform this action.')
         } else if (status === 500) {
           setError(
             errorData.message ||
-              'Đã xảy ra lỗi hệ thống, không thể xóa tài khoản và giao dịch liên quan.',
+              'An internal server error occurred, cannot delete account and related transactions.',
           )
         } else {
           setError(
-            errorData.message || 'Đã xảy ra lỗi. Vui lòng thử lại sau.',
+            errorData.message || 'An error occurred. Please try again later.',
           )
         }
       } else {
-        setError('Đã xảy ra lỗi. Vui lòng thử lại sau.')
+        setError('An error occurred. Please try again later.')
       }
     }
   }
@@ -124,7 +124,7 @@ const DeleteAccountModal: React.FC<DeleteAccountModalProps> = ({
               </svg>
             </div>
             <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-              Xác nhận xóa tài khoản
+              Confirm Account Deletion
             </h2>
           </div>
 
@@ -132,21 +132,21 @@ const DeleteAccountModal: React.FC<DeleteAccountModalProps> = ({
           <div className="mb-6">
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
               <span className="font-semibold text-red-600 dark:text-red-400">
-                CẢNH BÁO:
+                WARNING:
               </span>{' '}
-              Bạn có chắc chắn muốn xóa tài khoản{' '}
+              Are you sure you want to delete the account{' '}
               <span className="font-semibold">
                 {accountName} - {accountNumberLast4}
               </span>{' '}
-              không? Thao tác này sẽ xóa{' '}
+              permanently? This action will delete{' '}
               <span className="font-semibold text-red-600 dark:text-red-400">
-                VĨNH VIỄN
+                Permanently
               </span>{' '}
-              tài khoản và{' '}
+              the account and{' '}
               <span className="font-semibold text-red-600 dark:text-red-400">
-                TẤT CẢ
+                ALL
               </span>{' '}
-              giao dịch liên quan.
+              related transactions.
             </p>
           </div>
 
@@ -164,7 +164,7 @@ const DeleteAccountModal: React.FC<DeleteAccountModalProps> = ({
               onClick={onClose}
               disabled={isLoading}
             >
-              Hủy
+              Cancel
             </Button>
             <Button
               variant="danger"
@@ -193,10 +193,10 @@ const DeleteAccountModal: React.FC<DeleteAccountModalProps> = ({
                       d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                     />
                   </svg>
-                  Đang xử lý...
+                  Processing...
                 </span>
               ) : (
-                'Xác nhận Xóa'
+                'Confirm Deletion'
               )}
             </Button>
           </div>

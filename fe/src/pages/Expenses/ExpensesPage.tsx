@@ -36,7 +36,7 @@ const ExpensesPage: React.FC = () => {
                 Expenses Breakdown
               </h2>
               <p className="text-sm text-[#878787] dark:text-gray-500">
-                Chi tiết chi tiêu theo danh mục
+                Expenditure details by category
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -44,7 +44,7 @@ const ExpensesPage: React.FC = () => {
                 htmlFor="month-picker"
                 className="text-sm font-medium text-gray-700 dark:text-gray-300"
               >
-                Chọn tháng:
+                Select month:
               </label>
               <input
                 id="month-picker"

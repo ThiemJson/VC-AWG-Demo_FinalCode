@@ -19,7 +19,10 @@ const Dashboard: React.FC = () => {
         setIsLoading(true)
         const [accountsRes, transactionsRes] = await Promise.all([
           accountService.getAccounts(),
-          transactionService.getTransactions({}),
+          transactionService.getTransactions({
+            type: 'All',
+            limit: 5
+          }),
         ])
 
         if (accountsRes.success && accountsRes.data) {
@@ -31,7 +34,7 @@ const Dashboard: React.FC = () => {
           setRecentTransactions(transactionsRes.data.slice(0, 5))
         }
       } catch (err: any) {
-        setError(err.message || 'Không thể tải dữ liệu')
+        setError(err.message || 'Unable to load data')
       } finally {
         setIsLoading(false)
       }
@@ -41,7 +44,7 @@ const Dashboard: React.FC = () => {
   }, [])
 
   if (isLoading) {
-    return <Loading fullScreen message="Đang tải dữ liệu..." />
+    return <Loading fullScreen message="Loading..." />
   }
 
   if (error) {
@@ -54,16 +57,16 @@ const Dashboard: React.FC = () => {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-          Chào mừng, {user?.full_name || user?.username}!
+          Welcome, {user?.full_name || user?.username}!
         </h1>
         <p className="text-gray-600 dark:text-gray-400 mt-2">
-          Tổng quan tài chính của bạn
+          Your financial overview
         </p>
       </div>
 
       {/* Tổng số dư */}
       <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-6 text-white">
-        <h2 className="text-lg font-medium mb-2">Tổng số dư</h2>
+        <h2 className="text-lg font-medium mb-2">Total Balance</h2>
         <p className="text-3xl font-bold">
           {new Intl.NumberFormat('vi-VN', {
             style: 'currency',
@@ -75,10 +78,10 @@ const Dashboard: React.FC = () => {
       {/* Tài khoản */}
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
         <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-          Tài khoản của tôi
+          My Accounts
         </h2>
         {accounts.length === 0 ? (
-          <p className="text-gray-600 dark:text-gray-400">Chưa có tài khoản nào</p>
+          <p className="text-gray-600 dark:text-gray-400">No accounts available</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {accounts.map((account) => (
@@ -107,10 +110,10 @@ const Dashboard: React.FC = () => {
       {/* Giao dịch gần đây */}
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
         <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-          Giao dịch gần đây
+          Recent Transactions
         </h2>
         {recentTransactions.length === 0 ? (
-          <p className="text-gray-600 dark:text-gray-400">Chưa có giao dịch nào</p>
+          <p className="text-gray-600 dark:text-gray-400">No transactions available</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
@@ -144,7 +147,7 @@ const Dashboard: React.FC = () => {
                             : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
                         }`}
                       >
-                        {transaction.type === 'Revenue' ? 'Thu' : 'Chi'}
+                        {transaction.type === 'Revenue' ? 'Revenue' : 'Expense'}
                       </span>
                     </td>
                     <td className="px-4 py-3 text-sm font-medium text-gray-900 dark:text-white">

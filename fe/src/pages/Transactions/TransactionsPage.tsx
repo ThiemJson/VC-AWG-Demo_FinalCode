@@ -52,7 +52,7 @@ const TransactionsPage: React.FC = () => {
 
       // Hiển thị thông báo nếu danh sách trống
       if (isNewFilter && response.data.length === 0) {
-        setError('Bạn chưa có giao dịch nào được ghi nhận.')
+        setError('No transactions have been recorded yet.')
       }
     } catch (err: any) {
       setIsLoading(false)
@@ -65,7 +65,7 @@ const TransactionsPage: React.FC = () => {
 
       const errorMessage =
         err.response?.data?.message ||
-        'Đã có lỗi xảy ra. Vui lòng thử lại sau.'
+        'An error occurred. Please try again later.'
       setError(errorMessage)
       setToastMessage(errorMessage)
       setShowToast(true)
@@ -243,7 +243,7 @@ const TransactionsPage: React.FC = () => {
             // Empty state
             <div className="p-24 flex flex-col items-center justify-center">
               <p className="text-base text-[#9F9F9F] text-center">
-                Bạn chưa có giao dịch nào được ghi nhận.
+                No transactions have been recorded yet.
               </p>
             </div>
           ) : (
@@ -319,7 +319,7 @@ const TransactionsPage: React.FC = () => {
                       <tr>
                         <td colSpan={5} className="px-6 py-4">
                           <div className="flex justify-center">
-                            <Loading size="sm" message="Đang tải thêm..." />
+                            <Loading size="sm" message="Loading..." />
                           </div>
                         </td>
                       </tr>
@@ -364,7 +364,7 @@ const TransactionsPage: React.FC = () => {
                 ))}
                 {isLoading && transactions.length > 0 && (
                   <div className="p-4 flex justify-center">
-                    <Loading size="sm" message="Đang tải thêm..." />
+                    <Loading size="sm" message="Loading..." />
                   </div>
                 )}
               </div>

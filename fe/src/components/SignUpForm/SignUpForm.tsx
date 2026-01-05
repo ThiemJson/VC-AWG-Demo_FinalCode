@@ -22,7 +22,7 @@ const SignUpForm: React.FC = () => {
   // Validation functions
   const validateFullName = (name: string): boolean => {
     if (!name.trim()) {
-      setFullNameError('Full Name không được để trống')
+      setFullNameError('Full Name cannot be left blank.')
       return false
     }
     setFullNameError('')
@@ -32,11 +32,11 @@ const SignUpForm: React.FC = () => {
   const validateEmail = (email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!email.trim()) {
-      setEmailError('Email không được để trống')
+      setEmailError('Email address cannot be left blank.')
       return false
     }
     if (!emailRegex.test(email)) {
-      setEmailError('Email không hợp lệ')
+      setEmailError('Email is invalid.')
       return false
     }
     setEmailError('')
@@ -45,7 +45,7 @@ const SignUpForm: React.FC = () => {
 
   const validatePassword = (password: string): boolean => {
     if (!password.trim()) {
-      setPasswordError('Password không được để trống')
+      setPasswordError('Password cannot be left blank.')
       return false
     }
     setPasswordError('')
@@ -54,7 +54,7 @@ const SignUpForm: React.FC = () => {
 
   const validateConfirmPassword = (confirmPassword: string, password: string): boolean => {
     if (!confirmPassword.trim()) {
-      setConfirmPasswordError('Confirm Password không được để trống')
+      setConfirmPasswordError('Confirm Password cannot be left blank.')
       return false
     }
     if (confirmPassword !== password) {
@@ -87,7 +87,7 @@ const SignUpForm: React.FC = () => {
       navigate('/')
     } catch (err: any) {
       // Xử lý lỗi từ API
-      const errorMessage = err.response?.data?.error || err.message || 'Đăng ký thất bại. Vui lòng thử lại.'
+      const errorMessage = err.response?.data?.error || err.message || 'Sign up failed. Please try again.'
       setError(errorMessage)
     } finally {
       setIsLoading(false)

@@ -54,10 +54,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         localStorage.setItem('user', JSON.stringify(mappedUser))
         setUser(mappedUser)
       } else {
-        throw new Error(response.message || 'Đăng nhập thất bại')
+        throw new Error(response.message || 'Login failed')
       }
     } catch (error: any) {
-      throw new Error(error.response?.data?.message || 'Đăng nhập thất bại')
+      throw new Error(error.response?.data?.message || 'Login failed')
     }
   }
 

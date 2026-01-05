@@ -156,7 +156,7 @@ const AccountDetailPage: React.FC = () => {
                   strokeLinejoin="round"
                 />
               </svg>
-              <span className="text-base font-medium leading-6">Quay lại chi tiết tài khoản</span>
+              <span className="text-base font-medium leading-6">Return to account details</span>
             </button>
           </div>
 
@@ -195,7 +195,7 @@ const AccountDetailPage: React.FC = () => {
                 strokeLinejoin="round"
               />
             </svg>
-            <span className="text-base font-medium leading-6">Quay lại danh sách tài khoản</span>
+            <span className="text-base font-medium leading-6">Return to account list</span>
           </button>
         </div>
 
@@ -215,7 +215,7 @@ const AccountDetailPage: React.FC = () => {
                     onClick={() => setIsEditing(true)}
                     className="px-4 py-2 bg-[#299D91] text-white rounded-md hover:bg-[#238a7f] transition-colors text-sm font-medium"
                   >
-                    Chỉnh sửa
+                    Edit
                   </button>
                   <button
                     onClick={handleDelete}
@@ -231,7 +231,7 @@ const AccountDetailPage: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Số dư */}
               <div className="flex flex-col gap-1">
-                <p className="text-sm font-normal leading-5 text-[#9F9F9F]">Số dư hiện tại</p>
+                <p className="text-sm font-normal leading-5 text-[#9F9F9F]">Current balance</p>
                 <p className="text-2xl font-semibold leading-8 text-[#191919]">
                   {formatCurrency(accountData.balance)}
                 </p>
@@ -239,7 +239,7 @@ const AccountDetailPage: React.FC = () => {
 
               {/* Loại tài khoản */}
               <div className="flex flex-col gap-1">
-                <p className="text-sm font-normal leading-5 text-[#9F9F9F]">Loại tài khoản</p>
+                <p className="text-sm font-normal leading-5 text-[#9F9F9F]">Account type</p>
                 <p className="text-lg font-semibold leading-7 text-[#191919] uppercase">
                   {accountData.account_type}
                 </p>
@@ -248,7 +248,7 @@ const AccountDetailPage: React.FC = () => {
               {/* Tên chi nhánh */}
               {accountData.branch_name && (
                 <div className="flex flex-col gap-1">
-                  <p className="text-sm font-normal leading-5 text-[#9F9F9F]">Tên chi nhánh</p>
+                  <p className="text-sm font-normal leading-5 text-[#9F9F9F]">Branch name</p>
                   <p className="text-lg font-semibold leading-7 text-[#191919]">
                     {accountData.branch_name}
                   </p>
@@ -257,7 +257,7 @@ const AccountDetailPage: React.FC = () => {
 
               {/* Số tài khoản đầy đủ */}
               <div className="flex flex-col gap-1">
-                <p className="text-sm font-normal leading-5 text-[#9F9F9F]">Số tài khoản</p>
+                <p className="text-sm font-normal leading-5 text-[#9F9F9F]">Account number</p>
                 <p className="text-lg font-semibold leading-7 text-[#191919]">
                   {accountData.account_number_full}
                 </p>
@@ -268,13 +268,13 @@ const AccountDetailPage: React.FC = () => {
 
         {/* Bảng giao dịch gần đây */}
         <div className="bg-white rounded-lg shadow-[0px_20px_25px_0px_rgba(76,103,100,0.1)] p-6">
-          <h3 className="text-xl font-bold leading-7 text-[#191919] mb-6">Giao dịch gần đây</h3>
+          <h3 className="text-xl font-bold leading-7 text-[#191919] mb-6">Recent transactions</h3>
 
           {/* Kiểm tra nếu không có giao dịch */}
           {accountData.recent_transactions.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-base font-normal leading-6 text-[#9F9F9F]">
-                Chưa có giao dịch nào được ghi nhận cho tài khoản này.
+                No transactions have been recorded for this account.
               </p>
             </div>
           ) : (
@@ -283,16 +283,16 @@ const AccountDetailPage: React.FC = () => {
                 <thead>
                   <tr className="border-b border-[rgba(210,210,210,0.25)]">
                     <th className="text-left py-3 px-4 text-sm font-semibold leading-5 text-[#878787] uppercase">
-                      Ngày
+                      Date
                     </th>
                     <th className="text-left py-3 px-4 text-sm font-semibold leading-5 text-[#878787] uppercase">
-                      Mô tả
+                      Description
                     </th>
                     <th className="text-right py-3 px-4 text-sm font-semibold leading-5 text-[#878787] uppercase">
-                      Số tiền
+                      Amount
                     </th>
                     <th className="text-center py-3 px-4 text-sm font-semibold leading-5 text-[#878787] uppercase">
-                      Trạng thái
+                      Status
                     </th>
                   </tr>
                 </thead>
@@ -322,10 +322,10 @@ const AccountDetailPage: React.FC = () => {
                           }`}
                         >
                           {transaction.status === 'Complete'
-                            ? 'Hoàn thành'
+                            ? 'Complete'
                             : transaction.status === 'Pending'
-                            ? 'Đang xử lý'
-                            : 'Thất bại'}
+                            ? 'Pending'
+                            : 'Failed'}
                         </span>
                       </td>
                     </tr>

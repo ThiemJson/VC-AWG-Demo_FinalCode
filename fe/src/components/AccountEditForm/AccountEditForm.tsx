@@ -55,7 +55,7 @@ const AccountEditForm: React.FC<AccountEditFormProps> = ({
           setAccountNumberFull(data.account_number_full)
           setBalance(data.balance.toString())
         } catch (error: any) {
-          showToast('Không thể tải thông tin tài khoản. Vui lòng thử lại sau.', 'error')
+          showToast('Unable to load account information. Please try again later.', 'error')
         } finally {
           setIsInitialLoading(false)
         }
@@ -75,16 +75,16 @@ const AccountEditForm: React.FC<AccountEditFormProps> = ({
     const newErrors: typeof errors = {}
 
     if (!bankName.trim()) {
-      newErrors.bank_name = 'Ngân hàng không được để trống'
+      newErrors.bank_name = 'Bank name cannot be empty'
     }
 
     if (!accountType) {
-      newErrors.account_type = 'Loại tài khoản không được để trống'
+      newErrors.account_type = 'Account type cannot be empty'
     }
 
     const balanceNum = parseFloat(balance)
     if (isNaN(balanceNum) || balanceNum < 0) {
-      newErrors.balance = 'Số dư hiện tại phải là một giá trị số và không được âm'
+      newErrors.balance = 'Current balance must be a valid number and cannot be negative'
     }
 
     setErrors(newErrors)
@@ -120,7 +120,7 @@ const AccountEditForm: React.FC<AccountEditFormProps> = ({
 
       // Success handling
       // 1. Show toast notification
-      showToast('Cập nhật thành công', 'success')
+      showToast('Update successful', 'success')
 
       // 2. Call onSuccess callback with updated account data
       if (onSuccess && response.account) {
@@ -142,13 +142,13 @@ const AccountEditForm: React.FC<AccountEditFormProps> = ({
           if (errorData.message) {
             if (Array.isArray(errorData.message)) {
               errorData.message.forEach((msg: string) => {
-                if (msg.includes('bank_name') || msg.includes('ngân hàng')) {
+                if (msg.includes('bank_name') || msg.includes('bank')) {
                   validationErrors.bank_name = msg
-                } else if (msg.includes('account_type') || msg.includes('loại tài khoản')) {
+                } else if (msg.includes('account_type') || msg.includes('account type')) {
                   validationErrors.account_type = msg
-                } else if (msg.includes('account_number_full') || msg.includes('tài khoản')) {
+                } else if (msg.includes('account_number_full') || msg.includes('account number')) {
                   validationErrors.account_number_full = msg
-                } else if (msg.includes('balance') || msg.includes('số dư')) {
+                } else if (msg.includes('balance') || msg.includes('balance')) {
                   validationErrors.balance = msg
                 }
               })
@@ -159,18 +159,18 @@ const AccountEditForm: React.FC<AccountEditFormProps> = ({
           setErrors(validationErrors)
         } else if (status === 403) {
           // Forbidden - User doesn't own the account
-          showToast('Bạn không có quyền chỉnh sửa thông tin tài khoản này.', 'error')
+          showToast('You do not have permission to edit this account information.', 'error')
         } else if (status === 500) {
           // Server error
-          showToast('Đã xảy ra lỗi khi lưu dữ liệu. Vui lòng thử lại sau.', 'error')
+          showToast('An error occurred while saving the data. Please try again later.', 'error')
         } else {
           setErrors({
-            general: errorData.message || 'Đã xảy ra lỗi. Vui lòng thử lại sau.',
+            general: errorData.message || 'An error has occurred. Please try again later.',
           })
         }
       } else {
         setErrors({
-          general: 'Đã xảy ra lỗi. Vui lòng thử lại sau.',
+          general: 'An error has occurred. Please try again later.',
         })
       }
     }
@@ -182,7 +182,7 @@ const AccountEditForm: React.FC<AccountEditFormProps> = ({
       <div className="max-w-2xl mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
         <div className="flex items-center justify-center py-12">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-          <span className="ml-3 text-gray-600 dark:text-gray-400">Đang tải thông tin...</span>
+          <span className="ml-3 text-gray-600 dark:text-gray-400">Loading information...</span>
         </div>
       </div>
     )
@@ -191,7 +191,7 @@ const AccountEditForm: React.FC<AccountEditFormProps> = ({
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
       <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-        Chỉnh sửa tài khoản {bankName}
+        Edit Account {bankName}
       </h2>
 
       {errors.general && (
@@ -203,12 +203,12 @@ const AccountEditForm: React.FC<AccountEditFormProps> = ({
       <form onSubmit={handleSaveChanges} className="space-y-4">
         {/* Bank Name */}
         <Input
-          label="Ngân hàng"
+          label="Bank"
           type="text"
           value={bankName}
           onChange={(e) => setBankName(e.target.value)}
           error={errors.bank_name}
-          placeholder="Ví dụ: Vietcombank"
+          placeholder="Example: Vietcombank"
           required
         />
 
@@ -246,23 +246,23 @@ const AccountEditForm: React.FC<AccountEditFormProps> = ({
           value={branchName}
           onChange={(e) => setBranchName(e.target.value)}
           error={errors.branch_name}
-          placeholder="Ví dụ: Quận 3"
+          placeholder="Example: District 3"
         />
 
         {/* Account Number Full */}
         <Input
-          label="Số tài khoản đầy đủ"
+          label="Full account number"
           type="text"
           value={accountNumberFull}
           onChange={(e) => setAccountNumberFull(e.target.value)}
           error={errors.account_number_full}
-          placeholder="Ví dụ: 9704221234567890123"
+          placeholder="Example: 9704221234567890123"
           required
         />
 
         {/* Balance */}
         <Input
-          label="Số dư hiện tại"
+          label="Current balance"
           type="number"
           value={balance}
           onChange={(e) => setBalance(e.target.value)}
@@ -284,7 +284,7 @@ const AccountEditForm: React.FC<AccountEditFormProps> = ({
             Hủy
           </Button>
           <Button type="submit" variant="primary" isLoading={isLoading}>
-            Lưu thay đổi
+            Save Changes
           </Button>
         </div>
       </form>

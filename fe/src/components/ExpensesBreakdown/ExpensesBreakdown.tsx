@@ -21,7 +21,7 @@ const ExpensesBreakdown: React.FC<ExpensesBreakdownProps> = ({ month }) => {
   const fetchExpensesBreakdown = useCallback(async (monthParam: string) => {
     // Validation: đảm bảo month có định dạng hợp lệ
     if (!monthParam || !/^\d{4}-\d{2}$/.test(monthParam)) {
-      setError('Định dạng tháng không hợp lệ. Vui lòng sử dụng định dạng YYYY-MM.')
+      setError('The month format is invalid. Please use the YYYY-MM format.')
       setIsLoading(false)
       return
     }
@@ -35,7 +35,7 @@ const ExpensesBreakdown: React.FC<ExpensesBreakdownProps> = ({ month }) => {
       // Kiểm tra nếu mảng data rỗng
       if (!response.data || response.data.length === 0) {
         setExpensesData([])
-        setError('Bạn chưa có chi tiêu nào được ghi nhận trong tháng này.')
+        setError('You have no expenses recorded for this month.')
         return
       }
 
@@ -46,7 +46,7 @@ const ExpensesBreakdown: React.FC<ExpensesBreakdownProps> = ({ month }) => {
       const errorMessage =
         err.response?.data?.error ||
         err.response?.data?.message ||
-        'Không thể tải dữ liệu breakdown chi tiêu. Vui lòng thử lại sau.'
+        'Cannot load expenses breakdown data. Please try again later.'
       setError(errorMessage)
       setExpensesData([])
     } finally {
@@ -162,7 +162,7 @@ const ExpensesBreakdown: React.FC<ExpensesBreakdownProps> = ({ month }) => {
       <div className="bg-white rounded-lg p-12 shadow-[0px_20px_25px_0px_rgba(76,103,100,0.1)] text-center">
         <div className="text-[#878787] text-5xl mb-4">📊</div>
         <p className="text-[#878787] text-base font-normal">
-          Bạn chưa có chi tiêu nào được ghi nhận trong tháng này.
+          You have not recorded any expenses this month.
         </p>
       </div>
     )

@@ -8,6 +8,7 @@ export interface GetTransactionsParams {
 }
 
 export interface GetTransactionsResponse {
+  success: Transaction[]
   data: Transaction[]
   total: number
   hasMore: boolean

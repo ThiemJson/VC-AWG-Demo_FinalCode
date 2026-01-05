@@ -23,7 +23,7 @@ const UpcomingBills: React.FC = () => {
       }
     } catch (err: any) {
       console.error('Error fetching bills:', err)
-      setError('Không thể tải danh sách hóa đơn. Vui lòng thử lại.')
+      setError('Unable to load the invoice list. Please try again.')
       setBills([])
     } finally {
       setIsLoading(false)
@@ -124,7 +124,7 @@ const UpcomingBills: React.FC = () => {
       {bills.length === 0 ? (
         <div className="p-24 flex flex-col items-center justify-center">
           <p className="text-base text-[#9F9F9F] text-center">
-            Bạn không có hóa đơn nào sắp đến hạn thanh toán.
+            You do not have any upcoming bills to pay.
           </p>
         </div>
       ) : (

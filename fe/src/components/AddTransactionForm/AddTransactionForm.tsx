@@ -78,7 +78,7 @@ const AddTransactionForm: React.FC<AddTransactionFormProps> = ({ onSuccess }) =>
         }
       } catch (error) {
         console.error('Error loading data:', error)
-        showToast('Không thể tải dữ liệu. Vui lòng thử lại sau.', 'error')
+        showToast('Unable to load data. Please try again later.', 'error')
       } finally {
         setIsLoadingData(false)
       }
@@ -92,20 +92,20 @@ const AddTransactionForm: React.FC<AddTransactionFormProps> = ({ onSuccess }) =>
     const newErrors: typeof errors = {}
 
     if (!itemDescription.trim()) {
-      newErrors.itemDescription = 'Tên giao dịch không được để trống'
+      newErrors.itemDescription = 'Transaction name cannot be left blank'
     }
 
     const amountNum = parseFloat(amount)
     if (isNaN(amountNum) || amountNum <= 0) {
-      newErrors.amount = 'Số tiền phải là một số và lớn hơn 0'
+      newErrors.amount = 'Amount must be a number and greater than 0'
     }
 
     if (!categoryId) {
-      newErrors.categoryId = 'Vui lòng chọn danh mục'
+      newErrors.categoryId = 'Please select a category'
     }
 
     if (!accountId) {
-      newErrors.accountId = 'Vui lòng chọn tài khoản thanh toán'
+      newErrors.accountId = 'Please select a payment account'
     }
 
     setErrors(newErrors)
@@ -144,7 +144,7 @@ const AddTransactionForm: React.FC<AddTransactionFormProps> = ({ onSuccess }) =>
 
       // Success handling
       // 1. Show toast notification
-      showToast('Thêm giao dịch thành công.', 'success')
+      showToast('Transaction added successfully.', 'success')
 
       // 2. Reset form state
       setItemDescription('')
@@ -171,12 +171,12 @@ const AddTransactionForm: React.FC<AddTransactionFormProps> = ({ onSuccess }) =>
         const status = error.response.status
 
         if (status === 400 || status === 500) {
-          showToast('Không thể thêm giao dịch lúc này. Vui lòng thử lại sau.', 'error')
+          showToast('Unable to add transaction at this time. Please try again later.', 'error')
         } else {
-          showToast('Đã xảy ra lỗi. Vui lòng thử lại sau.', 'error')
+          showToast('An error has occurred. Please try again later.', 'error')
         }
       } else {
-        showToast('Không thể thêm giao dịch lúc này. Vui lòng thử lại sau.', 'error')
+        showToast('Unable to add transaction at this time. Please try again later.', 'error')
       }
     }
   }
@@ -194,7 +194,7 @@ const AddTransactionForm: React.FC<AddTransactionFormProps> = ({ onSuccess }) =>
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
       <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-        Thêm Giao Dịch Mới
+        Add New Transaction
       </h2>
 
       {errors.general && (
@@ -206,19 +206,19 @@ const AddTransactionForm: React.FC<AddTransactionFormProps> = ({ onSuccess }) =>
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Transaction Name / Item Description */}
         <Input
-          label="Tên giao dịch"
+          label="Transaction Name"
           type="text"
           value={itemDescription}
           onChange={(e) => setItemDescription(e.target.value)}
           error={errors.itemDescription}
-          placeholder="Ví dụ: Movie Ticket"
+          placeholder="Example: Movie Ticket"
           required
         />
 
         {/* Category */}
         <div className="w-full">
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Danh mục <span className="text-red-500">*</span>
+            Category <span className="text-red-500">*</span>
           </label>
           <select
             value={categoryId}
@@ -231,7 +231,7 @@ const AddTransactionForm: React.FC<AddTransactionFormProps> = ({ onSuccess }) =>
             `}
             required
           >
-            <option value="">-- Chọn danh mục --</option>
+            <option value="">-- Select category --</option>
             {categories.map((category) => (
               <option key={category.category_id} value={category.category_id}>
                 {category.category_name}
@@ -245,7 +245,7 @@ const AddTransactionForm: React.FC<AddTransactionFormProps> = ({ onSuccess }) =>
 
         {/* Amount */}
         <Input
-          label="Số tiền"
+          label="Amount"
           type="number"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
@@ -259,7 +259,7 @@ const AddTransactionForm: React.FC<AddTransactionFormProps> = ({ onSuccess }) =>
         {/* Transaction Type */}
         <div className="w-full">
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            Loại giao dịch
+            Transaction Type
           </label>
           <div className="flex space-x-4">
             <label className="flex items-center">
@@ -288,7 +288,7 @@ const AddTransactionForm: React.FC<AddTransactionFormProps> = ({ onSuccess }) =>
         {/* Payment Account */}
         <div className="w-full">
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Tài khoản thanh toán <span className="text-red-500">*</span>
+            Payment Account <span className="text-red-500">*</span>
           </label>
           <select
             value={accountId}
@@ -301,7 +301,7 @@ const AddTransactionForm: React.FC<AddTransactionFormProps> = ({ onSuccess }) =>
             `}
             required
           >
-            <option value="">-- Chọn tài khoản --</option>
+            <option value="">-- Select account --</option>
             {accounts.map((account) => (
               <option key={account.account_id} value={account.account_id}>
                 {account.bank_name} - {account.account_type} ({account.account_number_last_4}) -{' '}
@@ -316,7 +316,7 @@ const AddTransactionForm: React.FC<AddTransactionFormProps> = ({ onSuccess }) =>
 
         {/* Transaction Date */}
         <Input
-          label="Ngày giao dịch"
+          label="Transaction Date"
           type="date"
           value={transactionDate}
           onChange={(e) => setTransactionDate(e.target.value)}
@@ -325,20 +325,20 @@ const AddTransactionForm: React.FC<AddTransactionFormProps> = ({ onSuccess }) =>
 
         {/* Shop Name (Optional) */}
         <Input
-          label="Tên cửa hàng (Tùy chọn)"
+          label="Shop Name (Optional)"
           type="text"
           value={shopName}
           onChange={(e) => setShopName(e.target.value)}
-          placeholder="Ví dụ: Inox"
+          placeholder="Example: Inox"
         />
 
         {/* Payment Method (Optional) */}
         <Input
-          label="Phương thức thanh toán (Tùy chọn)"
+          label="Payment Method (Optional)"
           type="text"
           value={paymentMethod}
           onChange={(e) => setPaymentMethod(e.target.value)}
-          placeholder="Ví dụ: Credit Card"
+          placeholder="Example: Credit Card"
         />
 
         {/* Submit Buttons */}

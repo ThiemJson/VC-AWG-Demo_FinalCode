@@ -40,7 +40,7 @@ const SavingsSummaryChart: React.FC = () => {
       const hasLastYearData = response.summary.last_year.some((item) => item.amount !== 0)
 
       if (!hasThisYearData && !hasLastYearData) {
-        setError('Chưa có dữ liệu giao dịch trong năm này để tính toán tiết kiệm.')
+        setError('Transaction data for this year is not yet available to calculate savings.')
         setChartData(null)
         return
       }
@@ -54,7 +54,7 @@ const SavingsSummaryChart: React.FC = () => {
       // Xử lý lỗi API
       const errorMessage =
         err.response?.data?.message ||
-        'Không thể tải dữ liệu. Vui lòng thử lại sau.'
+        'Failed to load data. Please try again later.'
       setError(errorMessage)
       setChartData(null)
     } finally {

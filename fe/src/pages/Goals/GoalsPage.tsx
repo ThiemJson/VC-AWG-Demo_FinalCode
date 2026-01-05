@@ -41,7 +41,7 @@ const GoalsPage: React.FC = () => {
       if (response.success && response.data) {
         setGoalsData(response.data)
       } else {
-        setError('Không thể tải dữ liệu mục tiêu')
+        setError('Unable to load target data')
       }
     } catch (err: any) {
       // Xử lý lỗi 401 Unauthorized
@@ -53,7 +53,7 @@ const GoalsPage: React.FC = () => {
       // Xử lý lỗi hệ thống (500 hoặc các lỗi khác)
       const errorMessage =
         err.response?.data?.message ||
-        'Đã xảy ra lỗi hệ thống khi tải mục tiêu, vui lòng thử lại sau.'
+        'An error occurred while loading goals, please try again later.'
       setError(errorMessage)
     } finally {
       setIsLoading(false)
@@ -66,7 +66,7 @@ const GoalsPage: React.FC = () => {
 
   // Hiển thị loading state
   if (isLoading) {
-    return <Loading fullScreen message="Đang tải mục tiêu..." />
+    return <Loading fullScreen message="Loading goals..." />
   }
 
   // Hiển thị error state
@@ -99,10 +99,10 @@ const GoalsPage: React.FC = () => {
 
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-12 text-center">
             <p className="text-lg text-gray-600 dark:text-gray-400 mb-6">
-              Bạn chưa thiết lập mục tiêu nào. Hãy tạo mục tiêu đầu tiên!
+              You haven't set up any goals yet. Create your first goal!
             </p>
             <Button onClick={() => setCreateModalOpen(true)} variant="primary">
-              Tạo mục tiêu mới
+              Create New Goal
             </Button>
           </div>
         </div>
@@ -198,11 +198,11 @@ const GoalsPage: React.FC = () => {
                 {/* Date Range */}
                 <div className="flex gap-4 text-sm text-gray-600 dark:text-gray-400">
                   <div>
-                    <span className="font-medium">Bắt đầu: </span>
+                    <span className="font-medium">Start: </span>
                     {new Date(savingGoal.start_date).toLocaleDateString('vi-VN')}
                   </div>
                   <div>
-                    <span className="font-medium">Kết thúc: </span>
+                    <span className="font-medium">End: </span>
                     {new Date(savingGoal.end_date).toLocaleDateString('vi-VN')}
                   </div>
                 </div>
@@ -239,7 +239,7 @@ const GoalsPage: React.FC = () => {
                       {goal.category}
                     </h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
-                      Đã chi tiêu (tháng hiện tại)
+                      Spent (current month)
                     </p>
                     <p
                       className={`text-xl font-bold mb-2 ${
@@ -254,7 +254,7 @@ const GoalsPage: React.FC = () => {
                       }).format(goal.current_expense)}
                     </p>
                     <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                      Mục tiêu:{' '}
+                      Goals:{' '}
                       <span className="font-medium text-gray-900 dark:text-white">
                         {new Intl.NumberFormat('vi-VN', {
                           style: 'currency',
@@ -301,7 +301,7 @@ const GoalsPage: React.FC = () => {
                         size="sm"
                         className="w-full"
                       >
-                        Chỉnh sửa
+                        Edit
                       </Button>
                     </div>
                   </div>

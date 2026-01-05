@@ -41,9 +41,9 @@ const AccountListPage: React.FC = () => {
 
       // Xử lý lỗi server (500)
       if (err.response?.status === 500) {
-        setError('Đã xảy ra lỗi hệ thống, vui lòng thử lại sau.')
+        setError('An error occurred, please try again later.')
       } else {
-        setError(err.response?.data?.message || 'Đã xảy ra lỗi, vui lòng thử lại sau.')
+        setError(err.response?.data?.message || 'An error occurred, please try again later.')
       }
     } finally {
       setIsLoading(false)
@@ -63,7 +63,7 @@ const AccountListPage: React.FC = () => {
             Balances
           </h1>
           <div className="flex items-center justify-center min-h-[400px]">
-            <Loading size="lg" message="Đang tải danh sách tài khoản..." />
+            <Loading size="lg" message="Loading account list..." />
           </div>
         </div>
       </div>
@@ -94,7 +94,7 @@ const AccountListPage: React.FC = () => {
           </h1>
           <div className="bg-white rounded-lg shadow-[0px_20px_25px_0px_rgba(76,103,100,0.1)] p-24 flex flex-col items-center justify-center gap-4">
             <p className="text-base text-[#9F9F9F] text-center">
-              Bạn chưa liên kết tài khoản nào. Vui lòng thêm tài khoản.
+              You haven't linked any accounts yet. Please add an account.
             </p>
             <Button
               variant="primary"

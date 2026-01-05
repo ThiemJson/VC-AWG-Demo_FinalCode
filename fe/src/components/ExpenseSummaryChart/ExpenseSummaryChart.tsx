@@ -25,7 +25,7 @@ const ExpenseSummaryChart: React.FC = () => {
       // Kiểm tra nếu mảng data rỗng
       if (!response.data || response.data.length === 0) {
         setSummaryData([])
-        setError('Chưa có dữ liệu chi tiêu nào được ghi nhận để phân tích.')
+        setError('No spending data has been recorded for analysis.')
         return
       }
 
@@ -34,7 +34,7 @@ const ExpenseSummaryChart: React.FC = () => {
     } catch (err: any) {
       // Xử lý lỗi API
       const errorMessage =
-        err.response?.data?.error || 'Không thể tải dữ liệu chi tiêu. Vui lòng thử lại sau.'
+        err.response?.data?.error || 'Cannot load expense data. Please try again later.'
       setError(errorMessage)
       setSummaryData([])
     } finally {
@@ -131,7 +131,7 @@ const ExpenseSummaryChart: React.FC = () => {
             Monthly Comparison
           </h2>
           <p className="text-sm text-[#878787] dark:text-gray-500">
-            So sánh chi tiêu theo tháng trong năm {new Date().getFullYear()}
+            Compare monthly expenses throughout the year {new Date().getFullYear()}
           </p>
         </div>
 
@@ -238,11 +238,11 @@ const ExpenseSummaryChart: React.FC = () => {
         <div className="mt-6 flex items-center justify-center gap-6">
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 rounded bg-[#D1D5DB]"></div>
-            <span className="text-sm text-[#6B7280] dark:text-gray-400">Tháng trước</span>
+            <span className="text-sm text-[#6B7280] dark:text-gray-400">Last month</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 rounded bg-[#10B981]"></div>
-            <span className="text-sm text-[#6B7280] dark:text-gray-400">Tháng hiện tại</span>
+            <span className="text-sm text-[#6B7280] dark:text-gray-400">Current month</span>
           </div>
         </div>
       </div>

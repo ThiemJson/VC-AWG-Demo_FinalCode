@@ -45,7 +45,7 @@ const AdjustGoalModal: React.FC<AdjustGoalModalProps> = ({
     // Client-side validation: Kiểm tra giá trị nhập vào
     const amount = parseFloat(targetAmount)
     if (isNaN(amount) || amount <= 0) {
-      setInputError('Số tiền mục tiêu phải lớn hơn 0.')
+      setInputError('The target amount must be greater than 0.')
       return
     }
 
@@ -61,7 +61,7 @@ const AdjustGoalModal: React.FC<AdjustGoalModalProps> = ({
       // Kiểm tra response thành công
       if (response.message === 'Goal updated successfully' || response.updated_goal) {
         // 1. Hiển thị thông báo toast thành công
-        showToast('Điều chỉnh mục tiêu thành công.', 'success')
+        showToast('Adjusting the goals has been successful.', 'success')
 
         // 2. Gọi hàm onClose() để đóng modal
         onClose()
@@ -82,25 +82,25 @@ const AdjustGoalModal: React.FC<AdjustGoalModalProps> = ({
         if (status === 400) {
           // Lỗi validation từ backend
           setInputError(
-            errorData.message?.[0] || 'Số tiền mục tiêu phải lớn hơn 0.',
+            errorData.message?.[0] || 'The target amount must be greater than 0.',
           )
         } else if (status === 403) {
           // Lỗi quyền truy cập
-          setError('Bạn không có quyền chỉnh sửa mục tiêu này.')
+          setError('You do not have permission to edit this goal.')
         } else if (status === 500) {
           // Lỗi hệ thống
           setError(
             errorData.message ||
-              'Không thể lưu thay đổi lúc này. Vui lòng thử lại sau.',
+              'Changes cannot be saved at this time. Please try again later.',
           )
         } else {
           // Các lỗi khác
           setError(
-            errorData.message || 'Đã xảy ra lỗi. Vui lòng thử lại sau.',
+            errorData.message || 'An error occurred. Please try again later.',
           )
         }
       } else {
-        setError('Đã xảy ra lỗi. Vui lòng thử lại sau.')
+        setError('An error occurred. Please try again later.')
       }
     }
   }
@@ -125,7 +125,7 @@ const AdjustGoalModal: React.FC<AdjustGoalModalProps> = ({
           {/* Modal Header */}
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-              Điều chỉnh mục tiêu
+              Adjust Goal
             </h2>
             {/* Close Button */}
             <button
@@ -153,7 +153,7 @@ const AdjustGoalModal: React.FC<AdjustGoalModalProps> = ({
           <div className="space-y-4">
             {/* Target Amount Input */}
             <Input
-              label="Số tiền mục tiêu"
+              label="Target amount"
               type="number"
               min="0"
               step="0.01"
@@ -164,7 +164,7 @@ const AdjustGoalModal: React.FC<AdjustGoalModalProps> = ({
               }}
               error={inputError || undefined}
               disabled={isLoading}
-              placeholder="Nhập số tiền mục tiêu"
+              placeholder="Enter the target amount"
             />
 
             {/* General Error Message */}

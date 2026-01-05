@@ -81,19 +81,19 @@ const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
     // Validate target_amount
     const amount = parseFloat(targetAmount)
     if (!targetAmount || isNaN(amount) || amount <= 0) {
-      setTargetAmountError('Số tiền mục tiêu phải lớn hơn 0.')
+      setTargetAmountError('The target amount must be greater than 0.')
       isValid = false
     }
 
     // Validate start_date
     if (!startDate) {
-      setStartDateError('Ngày bắt đầu không được để trống.')
+      setStartDateError('The start date cannot be left blank.')
       isValid = false
     }
 
     // Validate end_date
     if (!endDate) {
-      setEndDateError('Ngày kết thúc không được để trống.')
+      setEndDateError('The end date cannot be left blank.')
       isValid = false
     }
 
@@ -102,14 +102,14 @@ const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
       const start = new Date(startDate)
       const end = new Date(endDate)
       if (end <= start) {
-        setEndDateError('Ngày kết thúc phải sau ngày bắt đầu.')
+        setEndDateError('The end date must be after the start date.')
         isValid = false
       }
     }
 
     // Validate category_id for Expense_Limit
     if (goalType === 'Expense_Limit' && !categoryId) {
-      setCategoryError('Danh mục không được để trống khi loại mục tiêu là Giới hạn chi tiêu.')
+      setCategoryError('Category cannot be empty when the goal type is Expense Limit.')
       isValid = false
     }
 
@@ -145,7 +145,7 @@ const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
       // Check if response is successful
       if (response.message === 'Goal created successfully' || response.goal_id) {
         // 1. Show success toast
-        showToast('Tạo mục tiêu thành công.', 'success')
+        showToast('Set goals for success.', 'success')
 
         // 2. Close modal
         onClose()
@@ -165,22 +165,22 @@ const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
 
         if (status === 400) {
           // Validation error from backend
-          const errorMessage = errorData.message || 'Dữ liệu đầu vào không hợp lệ.'
+          const errorMessage = errorData.message || 'Invalid input data.'
           setError(errorMessage)
         } else if (status === 500) {
           // Server error
           setError(
             errorData.message ||
-              'Không thể tạo mục tiêu lúc này. Vui lòng thử lại sau.',
+              'Cannot create goal at this time. Please try again later.',
           )
         } else {
           // Other errors
           setError(
-            errorData.message || 'Không thể tạo mục tiêu lúc này. Vui lòng thử lại sau.',
+            errorData.message || 'Cannot create goal at this time. Please try again later.',
           )
         }
       } else {
-        setError('Không thể tạo mục tiêu lúc này. Vui lòng thử lại sau.')
+        setError('Cannot create goal at this time. Please try again later.')
       }
     }
   }
@@ -219,7 +219,7 @@ const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
           {/* Modal Header */}
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-              Thêm mục tiêu mới
+              Add a new goal
             </h2>
             {/* Close Button */}
             <button
@@ -248,7 +248,7 @@ const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
             {/* Goal Type Selection */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Loại mục tiêu
+                Goal Type
               </label>
               <div className="flex gap-4">
                 <label className="flex items-center">
@@ -289,7 +289,7 @@ const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
             {goalType === 'Expense_Limit' && (
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Danh mục
+                  Category
                 </label>
                 <select
                   value={categoryId || ''}
@@ -305,7 +305,7 @@ const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
                     ${categoryError ? 'border-red-500 focus:ring-red-500' : 'border-gray-300'}
                   `}
                 >
-                  <option value="">Chọn danh mục</option>
+                  <option value="">Select a category</option>
                   {categories.map((category) => (
                     <option key={category.category_id} value={category.category_id}>
                       {category.category_name}
@@ -320,18 +320,18 @@ const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
 
             {/* Target Amount Input */}
             <Input
-              label="Số tiền mục tiêu"
+              label="Target amount"
               type="text"
               value={targetAmount ? formatCurrency(targetAmount) : ''}
               onChange={handleTargetAmountChange}
               error={targetAmountError || undefined}
               disabled={isLoading}
-              placeholder="Nhập số tiền mục tiêu"
+              placeholder="Enter the target amount"
             />
 
             {/* Start Date Input */}
             <Input
-              label="Ngày bắt đầu"
+              label="Start date"
               type="date"
               value={startDate}
               onChange={(e) => {
@@ -345,7 +345,7 @@ const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
 
             {/* End Date Input */}
             <Input
-              label="Ngày kết thúc"
+              label="End date"
               type="date"
               value={endDate}
               onChange={(e) => {
@@ -372,7 +372,7 @@ const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
               onClick={onClose}
               disabled={isLoading}
             >
-              Hủy
+              Cancel
             </Button>
             <Button
               variant="primary"
@@ -380,7 +380,7 @@ const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
               isLoading={isLoading}
               disabled={isLoading}
             >
-              Lưu
+              Save
             </Button>
           </div>
         </div>

@@ -203,7 +203,7 @@ const TransactionsPage: React.FC = () => {
                 d="M12 4v16m8-8H4"
               />
             </svg>
-            Thêm giao dịch
+            Add transaction
           </Button>
         </div>
 

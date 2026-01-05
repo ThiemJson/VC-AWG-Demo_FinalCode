@@ -25,18 +25,18 @@ export class GoalController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Lấy mục tiêu tiết kiệm và mục tiêu chi tiêu của người dùng' })
+  @ApiOperation({ summary: 'Take into account the user\'s savings and spending goals.' })
   @ApiResponse({
     status: 200,
-    description: 'Lấy danh sách mục tiêu thành công',
+    description: 'Get list of goals successfully',
   })
   @ApiResponse({
     status: 401,
-    description: 'Unauthorized - Token không hợp lệ hoặc hết hạn',
+    description: 'Unauthorized - Invalid or expired token',
   })
   @ApiResponse({
     status: 500,
-    description: 'Lỗi hệ thống',
+    description: 'System error',
   })
   async getGoals(@Request() req) {
     const userId = req.user.userId;
@@ -44,29 +44,29 @@ export class GoalController {
 
     return {
       success: true,
-      message: 'Lấy danh sách mục tiêu thành công',
+      message: 'Get list of goals successfully',
       data: goalsData,
     };
   }
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  @ApiOperation({ summary: 'Tạo mục tiêu tiết kiệm hoặc chi tiêu mới' })
+  @ApiOperation({ summary: 'Create a new savings or spending goal' })
   @ApiResponse({
     status: 201,
-    description: 'Tạo mục tiêu thành công',
+    description: 'Goal created successfully',
   })
   @ApiResponse({
     status: 400,
-    description: 'Dữ liệu đầu vào không hợp lệ',
+    description: 'Invalid input data',
   })
   @ApiResponse({
     status: 401,
-    description: 'Unauthorized - Token không hợp lệ hoặc hết hạn',
+    description: 'Unauthorized - Invalid or expired token',
   })
   @ApiResponse({
     status: 500,
-    description: 'Lỗi hệ thống',
+    description: 'System error',
   })
   async createGoal(@Request() req, @Body() createGoalDto: CreateGoalDto) {
     const userId = req.user.userId;
@@ -80,30 +80,30 @@ export class GoalController {
 
   @Put(':goalId')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Cập nhật mục tiêu tiết kiệm hoặc chi tiêu' })
+  @ApiOperation({ summary: 'Update a savings or spending goal' })
   @ApiResponse({
     status: 200,
-    description: 'Cập nhật mục tiêu thành công',
+    description: 'Goal updated successfully',
   })
   @ApiResponse({
     status: 400,
-    description: 'Dữ liệu đầu vào không hợp lệ',
+    description: 'Invalid input data',
   })
   @ApiResponse({
     status: 401,
-    description: 'Unauthorized - Token không hợp lệ hoặc hết hạn',
+    description: 'Unauthorized - Invalid or expired token',
   })
   @ApiResponse({
     status: 403,
-    description: 'Forbidden - Không có quyền chỉnh sửa mục tiêu này',
+    description: 'Forbidden - I do not have permission to edit this target.',
   })
   @ApiResponse({
     status: 404,
-    description: 'Not Found - Không tìm thấy mục tiêu',
+    description: 'Not Found - Goal not found',
   })
   @ApiResponse({
     status: 500,
-    description: 'Lỗi hệ thống',
+    description: 'System error',
   })
   async updateGoal(
     @Request() req,

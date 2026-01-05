@@ -22,17 +22,17 @@ export class SavingsController {
 
   @Get('summary')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Lấy tổng hợp tiết kiệm theo tháng cho năm được chỉ định' })
+  @ApiOperation({ summary: 'Calculate the total monthly savings for the specified year.' })
   @ApiQuery({
     name: 'year',
     required: false,
     type: Number,
-    description: 'Năm cần lấy dữ liệu (mặc định là năm hiện tại)',
+    description: 'Year to get data (default is the current year)',
     example: 2025,
   })
   @ApiResponse({
     status: 200,
-    description: 'Lấy tổng hợp tiết kiệm thành công',
+    description: 'Get savings summary successfully',
     schema: {
       type: 'object',
       properties: {
@@ -68,11 +68,11 @@ export class SavingsController {
   })
   @ApiResponse({
     status: 401,
-    description: 'Unauthorized - Token không hợp lệ hoặc hết hạn',
+    description: 'Unauthorized - Invalid or expired token',
   })
   @ApiResponse({
     status: 500,
-    description: 'Lỗi hệ thống',
+    description: 'System error',
   })
   async getSavingsSummary(
     @Request() req,
@@ -80,7 +80,7 @@ export class SavingsController {
   ): Promise<SavingsSummaryResponse> {
     // Kiểm tra và lấy userId từ JWT payload
     if (!req.user || !req.user.userId) {
-      throw new UnauthorizedException('Không thể xác thực người dùng. Vui lòng đăng nhập lại.');
+      throw new UnauthorizedException('User authentication failed. Please log in again.');
     }
 
     const userId = req.user.userId;

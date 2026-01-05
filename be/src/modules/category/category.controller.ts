@@ -17,50 +17,50 @@ export class CategoryController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Lấy danh sách tất cả categories' })
+  @ApiOperation({ summary: 'Get a list of all categories' })
   @ApiResponse({
     status: 200,
-    description: 'Lấy danh sách categories thành công',
+    description: 'Get list of categories successfully',
   })
   @ApiResponse({
     status: 500,
-    description: 'Lỗi hệ thống',
+    description: 'System error',
   })
   async getCategories() {
     const categories = await this.categoryService.findAll();
 
     return {
       success: true,
-      message: 'Lấy danh sách danh mục thành công',
+      message: 'Get list of categories successfully',
       data: categories,
     };
   }
 
   @Get(':id')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Lấy chi tiết một category' })
+  @ApiOperation({ summary: 'Get details of a category' })
   @ApiResponse({
     status: 200,
-    description: 'Lấy chi tiết category thành công',
+    description: 'Get category details successfully',
   })
   @ApiResponse({
     status: 404,
-    description: 'Category không tồn tại',
+    description: 'Category not found',
   })
   @ApiResponse({
     status: 500,
-    description: 'Lỗi hệ thống',
+    description: 'System error',
   })
   async getCategory(@Param('id', ParseIntPipe) id: number) {
     const category = await this.categoryService.findOne(id);
 
     if (!category) {
-      throw new NotFoundException('Category không tồn tại');
+      throw new NotFoundException('Category not found');
     }
 
     return {
       success: true,
-      message: 'Lấy chi tiết danh mục thành công',
+      message: 'Get category details successfully',
       data: category,
     };
   }

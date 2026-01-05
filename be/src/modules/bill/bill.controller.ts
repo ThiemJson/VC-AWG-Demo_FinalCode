@@ -19,10 +19,10 @@ export class BillController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Lấy danh sách hóa đơn sắp tới của người dùng' })
+  @ApiOperation({ summary: 'Get a list of the user\'s upcoming invoices.' })
   @ApiResponse({
     status: 200,
-    description: 'Lấy danh sách hóa đơn thành công',
+    description: 'Get list of upcoming invoices successfully',
     schema: {
       type: 'object',
       properties: {
@@ -46,11 +46,11 @@ export class BillController {
   })
   @ApiResponse({
     status: 401,
-    description: 'Unauthorized - Token không hợp lệ hoặc hết hạn',
+    description: 'Unauthorized - Invalid or expired token',
   })
   @ApiResponse({
     status: 500,
-    description: 'Lỗi hệ thống',
+    description: 'System error',
   })
   async getBills(@Request() req) {
     const userId = req.user.userId;

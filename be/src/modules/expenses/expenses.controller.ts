@@ -21,18 +21,18 @@ export class ExpensesController {
 
   @Get('summary')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Lấy tổng hợp chi tiêu theo tháng trong năm hiện tại' })
+  @ApiOperation({ summary: 'Get a summary of monthly expenses for the current year.' })
   @ApiResponse({
     status: 200,
-    description: 'Lấy tổng hợp chi tiêu thành công',
+    description: 'Get expense summary successfully',
   })
   @ApiResponse({
     status: 401,
-    description: 'Unauthorized - Token không hợp lệ hoặc hết hạn',
+    description: 'Unauthorized - Invalid or expired token',
   })
   @ApiResponse({
     status: 500,
-    description: 'Lỗi hệ thống',
+    description: 'System error',
   })
   async getExpenseSummary(@Request() req) {
     const userId = req.user.userId;
@@ -44,35 +44,35 @@ export class ExpensesController {
 
   @Get('breakdown')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Lấy breakdown chi tiêu theo danh mục cho một tháng cụ thể' })
+  @ApiOperation({ summary: 'Get expenses breakdown by category for a specific month' })
   @ApiQuery({
     name: 'month',
     required: true,
     type: String,
-    description: 'Tháng định dạng YYYY-MM (ví dụ: 2025-11)',
+    description: 'Month in YYYY-MM format (e.g., 2025-11)',
     example: '2025-11',
   })
   @ApiResponse({
     status: 200,
-    description: 'Lấy breakdown chi tiêu thành công',
+    description: 'Get expenses breakdown successfully',
   })
   @ApiResponse({
     status: 401,
-    description: 'Unauthorized - Token không hợp lệ hoặc hết hạn',
+    description: 'Unauthorized - Invalid or expired token',
   })
   @ApiResponse({
     status: 404,
-    description: 'Không có dữ liệu chi tiêu cho tháng này',
+    description: 'No expense data found for this month',
   })
   @ApiResponse({
     status: 500,
-    description: 'Lỗi hệ thống',
+    description: 'System error',
   })
   async getExpensesBreakdown(@Request() req, @Query('month') month: string) {
     // Validation month parameter
     if (!month || !/^\d{4}-\d{2}$/.test(month)) {
       throw new BadRequestException({
-        error: 'Tham số month không hợp lệ. Vui lòng sử dụng định dạng YYYY-MM (ví dụ: 2025-11)',
+        error: 'Invalid month parameter. Please use the format YYYY-MM (e.g., 2025-11)',
       });
     }
 

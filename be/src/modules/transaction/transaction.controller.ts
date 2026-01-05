@@ -25,10 +25,10 @@ export class TransactionController {
   @Get()
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Lấy danh sách giao dịch của người dùng' })
+  @ApiOperation({ summary: 'Get a list of user transactions.' })
   @ApiResponse({
     status: 200,
-    description: 'Lấy danh sách giao dịch thành công',
+    description: 'Get list of transactions successfully',
   })
   @ApiResponse({
     status: 400,
@@ -36,11 +36,11 @@ export class TransactionController {
   })
   @ApiResponse({
     status: 401,
-    description: 'Unauthorized - Token không hợp lệ hoặc hết hạn',
+    description: 'Unauthorized - Invalid or expired token',
   })
   @ApiResponse({
     status: 500,
-    description: 'Lỗi hệ thống',
+    description: 'System error',
   })
   async getTransactions(
     @Request() req,
@@ -62,10 +62,10 @@ export class TransactionController {
   @Post()
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.CREATED)
-  @ApiOperation({ summary: 'Tạo giao dịch mới' })
+  @ApiOperation({ summary: 'Create a new transaction' })
   @ApiResponse({
     status: 201,
-    description: 'Tạo giao dịch thành công',
+    description: 'Create transaction successfully',
   })
   @ApiResponse({
     status: 400,
@@ -73,11 +73,11 @@ export class TransactionController {
   })
   @ApiResponse({
     status: 401,
-    description: 'Unauthorized - Token không hợp lệ hoặc hết hạn',
+    description: 'Unauthorized - Invalid or expired token',
   })
   @ApiResponse({
     status: 500,
-    description: 'Lỗi hệ thống',
+    description: 'System error',
   })
   async createTransaction(@Request() req, @Body() createTransactionDto: CreateTransactionDto) {
     const userId = req.user.userId;

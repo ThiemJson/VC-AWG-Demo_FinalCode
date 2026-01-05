@@ -12,39 +12,39 @@ export class AuthController {
 
   @Post('login')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Đăng nhập người dùng' })
+  @ApiOperation({ summary: 'User login' })
   @ApiResponse({
     status: 200,
-    description: 'Đăng nhập thành công',
+    description: 'Login successful',
     type: LoginResponseDto,
   })
   @ApiResponse({
     status: 401,
-    description: 'Email hoặc mật khẩu không đúng',
+    description: 'Email or password is incorrect',
   })
   async login(@Body() loginDto: LoginDto) {
     const result = await this.authService.login(loginDto);
     return {
       success: true,
-      message: 'Đăng nhập thành công',
+      message: 'Login successful',
       data: result,
     };
   }
 
   @Post('register')
   @HttpCode(HttpStatus.CREATED)
-  @ApiOperation({ summary: 'Đăng ký người dùng mới' })
+  @ApiOperation({ summary: 'Register a new user' })
   @ApiResponse({
     status: 201,
-    description: 'Đăng ký thành công',
+    description: 'Registration successful',
   })
   @ApiResponse({
     status: 400,
-    description: 'Mật khẩu không khớp',
+    description: 'Password does not match',
   })
   @ApiResponse({
     status: 409,
-    description: 'Email đã tồn tại',
+    description: 'Email already exists',
   })
   async register(@Body() registerDto: RegisterDto) {
     const result = await this.authService.register(registerDto);

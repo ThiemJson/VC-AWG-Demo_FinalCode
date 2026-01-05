@@ -28,18 +28,18 @@ export class AccountController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Lấy danh sách tài khoản của người dùng' })
+  @ApiOperation({ summary: 'Get a list of user accounts.' })
   @ApiResponse({
     status: 200,
-    description: 'Lấy danh sách tài khoản thành công',
+    description: 'Get list of successful accounts',
   })
   @ApiResponse({
     status: 401,
-    description: 'Unauthorized - Token không hợp lệ hoặc hết hạn',
+    description: 'Unauthorized - Invalid or expired token',
   })
   @ApiResponse({
     status: 500,
-    description: 'Lỗi hệ thống',
+    description: 'System error',
   })
   async getAccounts(@Request() req) {
     const userId = req.user.userId;
@@ -47,7 +47,7 @@ export class AccountController {
 
     return {
       success: true,
-      message: 'Lấy danh sách tài khoản thành công',
+      message: 'Get list of accounts successfully',
       data: {
         user_id: userId,
         accounts,
@@ -57,26 +57,26 @@ export class AccountController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  @ApiOperation({ summary: 'Tạo tài khoản mới' })
+  @ApiOperation({ summary: 'Create a new account' })
   @ApiResponse({
     status: 201,
-    description: 'Tạo tài khoản thành công',
+    description: 'Account created successfully',
   })
   @ApiResponse({
     status: 400,
-    description: 'Dữ liệu đầu vào không hợp lệ',
+    description: 'Invalid input data',
   })
   @ApiResponse({
     status: 401,
-    description: 'Unauthorized - Token không hợp lệ hoặc hết hạn',
+    description: 'Unauthorized - Invalid or expired token',
   })
   @ApiResponse({
     status: 409,
-    description: 'Tài khoản đã tồn tại',
+    description: 'Account already exists',
   })
   @ApiResponse({
     status: 500,
-    description: 'Lỗi hệ thống',
+    description: 'System error',
   })
   async createAccount(@Request() req, @Body() createAccountDto: CreateAccountDto) {
     const userId = req.user.userId;
@@ -90,38 +90,38 @@ export class AccountController {
 
   @Get(':id')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Lấy chi tiết tài khoản kèm giao dịch gần đây' })
+  @ApiOperation({ summary: 'Get account details with recent transactions' })
   @ApiResponse({
     status: 200,
-    description: 'Lấy chi tiết tài khoản thành công',
+    description: 'Get account details successfully',
   })
   @ApiResponse({
     status: 401,
-    description: 'Unauthorized - Token không hợp lệ hoặc hết hạn',
+    description: 'Unauthorized - Invalid or expired token',
   })
   @ApiResponse({
     status: 403,
-    description: 'Forbidden - Không có quyền xem tài khoản này',
+    description: 'Forbidden - Permission not granted to view this account',
   })
   @ApiResponse({
     status: 404,
-    description: 'Not Found - Không tìm thấy tài khoản',
+    description: 'Not Found - Account not found',
   })
   @ApiResponse({
     status: 500,
-    description: 'Lỗi hệ thống',
+    description: 'System error',
   })
   async getAccountDetail(@Request() req, @Param('id') id: string) {
     // Kiểm tra và lấy userId từ JWT payload
     if (!req.user || !req.user.userId) {
-      throw new UnauthorizedException('Không thể xác thực người dùng. Vui lòng đăng nhập lại.');
+      throw new UnauthorizedException('User authentication failed. Please log in again.');
     }
     
     const userId = req.user.userId;
     const accountId = parseInt(id, 10);
     
     if (isNaN(accountId)) {
-      throw new BadRequestException('ID tài khoản không hợp lệ.');
+      throw new BadRequestException('Invalid account ID.');
     }
     
       const accountData = await this.accountService.findOneWithTransactions(accountId, userId);
@@ -131,30 +131,30 @@ export class AccountController {
 
   @Put(':id')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Cập nhật thông tin tài khoản' })
+  @ApiOperation({ summary: 'Update account information' })
   @ApiResponse({
     status: 200,
-    description: 'Cập nhật tài khoản thành công',
+    description: 'Account updated successfully',
   })
   @ApiResponse({
     status: 400,
-    description: 'Dữ liệu đầu vào không hợp lệ',
+    description: 'Invalid input data',
   })
   @ApiResponse({
     status: 401,
-    description: 'Unauthorized - Token không hợp lệ hoặc hết hạn',
+    description: 'Unauthorized - Invalid or expired token',
   })
   @ApiResponse({
     status: 403,
-    description: 'Forbidden - Không có quyền chỉnh sửa tài khoản này',
+    description: 'Forbidden - Permission not granted to edit this account',
   })
   @ApiResponse({
     status: 404,
-    description: 'Not Found - Không tìm thấy tài khoản',
+    description: 'Not Found - Account not found',
   })
   @ApiResponse({
     status: 500,
-    description: 'Lỗi hệ thống',
+    description: 'System error',
   })
   async updateAccount(
     @Request() req,
@@ -163,14 +163,14 @@ export class AccountController {
   ) {
     // Kiểm tra và lấy userId từ JWT payload
     if (!req.user || !req.user.userId) {
-      throw new UnauthorizedException('Không thể xác thực người dùng. Vui lòng đăng nhập lại.');
+      throw new UnauthorizedException('User authentication failed. Please log in again.');
     }
 
     const userId = req.user.userId;
     const accountId = parseInt(id, 10);
 
     if (isNaN(accountId)) {
-      throw new BadRequestException('ID tài khoản không hợp lệ.');
+      throw new BadRequestException('Invalid account ID.');
     }
 
     const updatedAccount = await this.accountService.update(accountId, userId, updateAccountDto);
@@ -183,34 +183,34 @@ export class AccountController {
 
   @Delete(':id')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Xóa tài khoản và tất cả giao dịch liên quan' })
+  @ApiOperation({ summary: 'Delete account and all related transactions' })
   @ApiResponse({
     status: 200,
-    description: 'Xóa tài khoản thành công',
+    description: 'Account deleted successfully',
   })
   @ApiResponse({
     status: 401,
-    description: 'Unauthorized - Token không hợp lệ hoặc hết hạn',
+    description: 'Unauthorized - Invalid or expired token',
   })
   @ApiResponse({
     status: 404,
-    description: 'Not Found - Không tìm thấy tài khoản hoặc không thuộc sở hữu của người dùng',
+    description: 'Not Found - Account not found or not owned by the user',
   })
   @ApiResponse({
     status: 500,
-    description: 'Lỗi hệ thống',
+    description: 'System error',
   })
   async deleteAccount(@Request() req, @Param('id') id: string) {
     // Kiểm tra và lấy userId từ JWT payload
     if (!req.user || !req.user.userId) {
-      throw new UnauthorizedException('Không thể xác thực người dùng. Vui lòng đăng nhập lại.');
+      throw new UnauthorizedException('User authentication failed. Please log in again.');
     }
 
     const userId = req.user.userId;
     const accountId = parseInt(id, 10);
 
     if (isNaN(accountId)) {
-      throw new BadRequestException('ID tài khoản không hợp lệ.');
+      throw new BadRequestException('Invalid account ID.');
     }
 
     const result = await this.accountService.delete(accountId, userId);

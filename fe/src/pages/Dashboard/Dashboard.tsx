@@ -26,12 +26,25 @@ const Dashboard: React.FC = () => {
         ])
 
         if (accountsRes.success && accountsRes.data) {
-          setAccounts(accountsRes.data)
+          // Hỗ trợ nhiều kiểu response shape từ backend
+          const accountsData = Array.isArray(accountsRes.data)
+            ? accountsRes.data
+            : accountsRes.data.accounts ?? accountsRes.data.items ?? []
+
+          if (Array.isArray(accountsData)) {
+            setAccounts(accountsData)
+          } else {
+            console.error('Unexpected accounts response shape', accountsRes.data)
+            setAccounts([])
+          }
         }
 
         if (transactionsRes.success && transactionsRes.data) {
-          // Lấy 5 giao dịch gần nhất
-          setRecentTransactions(transactionsRes.data.slice(0, 5))
+          // Lấy 5 giao dịch gần nhất, hỗ trợ nhiều shape
+          const txData = Array.isArray(transactionsRes.data)
+            ? transactionsRes.data
+            : transactionsRes.data.transactions ?? transactionsRes.data.items ?? []
+          setRecentTransactions(txData.slice(0, 5))
         }
       } catch (err: any) {
         setError(err.message || 'Unable to load data')
@@ -51,7 +64,9 @@ const Dashboard: React.FC = () => {
     return <Error message={error} onRetry={() => window.location.reload()} />
   }
 
-  const totalBalance = accounts.reduce((sum, acc) => sum + acc.balance, 0)
+  const totalBalance = Array.isArray(accounts)
+    ? accounts.reduce((sum, acc) => sum + (acc.balance || 0), 0)
+    : 0
 
   return (
     <div className="space-y-6">

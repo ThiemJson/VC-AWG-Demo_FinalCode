@@ -36,7 +36,12 @@ const ProtectedRoute: React.FC<{ children: React.ReactElement }> = ({ children }
 
 const AppRouter: React.FC = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}
+    >
       <Layout>
         <ErrorBoundary>
           <React.Suspense fallback={<Loading fullScreen message="Đang tải trang..." />}>

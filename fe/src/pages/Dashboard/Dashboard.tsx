@@ -39,12 +39,24 @@ const Dashboard: React.FC = () => {
           }
         }
 
-        if (transactionsRes.success && transactionsRes.data) {
-          // Lấy 5 giao dịch gần nhất, hỗ trợ nhiều shape
-          const txData = Array.isArray(transactionsRes.data)
-            ? transactionsRes.data
-            : transactionsRes.data.transactions ?? transactionsRes.data.items ?? []
-          setRecentTransactions(txData.slice(0, 5))
+        console.log('Transactions Response:', transactionsRes)
+        if (transactionsRes.data && Array.isArray(transactionsRes.data)) {
+          const txData: Transaction[] = transactionsRes.data
+
+          if (txData.length === 0) {
+            console.warn('No transactions available in API response')
+          }
+
+          // Sắp xếp giao dịch theo thời gian giảm dần và lấy 5 giao dịch mới nhất
+          const sortedTransactions = txData
+            .filter((transaction) => transaction.transaction_date) // Lọc các giao dịch có ngày hợp lệ
+            .sort((a: Transaction, b: Transaction) =>
+              new Date(b.transaction_date).getTime() - new Date(a.transaction_date).getTime()
+            )
+          console.log('Sorted Transactions:', sortedTransactions)
+          setRecentTransactions(sortedTransactions.slice(0, 5))
+        } else {
+          console.error('Invalid transactions response structure')
         }
       } catch (err: any) {
         setError(err.message || 'Unable to load data')
@@ -149,8 +161,8 @@ const Dashboard: React.FC = () => {
                 </tr>
               </thead>
               <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                {recentTransactions.map((transaction) => (
-                  <tr key={transaction.transaction_id}>
+                {recentTransactions.map((transaction, index) => (
+                  <tr key={transaction.transaction_id || index}>
                     <td className="px-4 py-3 text-sm text-gray-900 dark:text-white">
                       {transaction.item_description}
                     </td>

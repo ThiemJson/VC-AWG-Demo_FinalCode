@@ -241,7 +241,7 @@ const AccountEditForm: React.FC<AccountEditFormProps> = ({
 
         {/* Branch Name */}
         <Input
-          label="Chi nhánh"
+          label="Branch Name"
           type="text"
           value={branchName}
           onChange={(e) => setBranchName(e.target.value)}

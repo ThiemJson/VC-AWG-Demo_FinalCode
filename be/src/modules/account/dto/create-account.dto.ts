@@ -2,24 +2,24 @@ import { IsNotEmpty, IsString, IsNumber, Min, IsOptional, IsEnum } from 'class-v
 import { AccountType } from '../account.entity';
 
 export class CreateAccountDto {
-  @IsNotEmpty({ message: 'Tên ngân hàng không được để trống' })
-  @IsString({ message: 'Tên ngân hàng phải là chuỗi ký tự' })
+  @IsNotEmpty({ message: 'The bank name cannot be left blank.' })
+  @IsString({ message: 'The bank name must be a string.' })
   bank_name: string;
 
-  @IsNotEmpty({ message: 'Loại tài khoản không được để trống' })
-  @IsEnum(AccountType, { message: 'Loại tài khoản không hợp lệ' })
+  @IsNotEmpty({ message: 'Account type cannot be left blank.' })
+  @IsEnum(AccountType, { message: 'Invalid account type.' })
   account_type: AccountType;
 
   @IsOptional()
-  @IsString({ message: 'Tên chi nhánh phải là chuỗi ký tự' })
+  @IsString({ message: 'The branch name must be a string.' })
   branch_name?: string;
 
-  @IsNotEmpty({ message: 'Số tài khoản đầy đủ không được để trống' })
-  @IsString({ message: 'Số tài khoản đầy đủ phải là chuỗi ký tự' })
+  @IsNotEmpty({ message: 'The account number cannot be left blank.' })
+  @IsString({ message: 'The account number must be a string.' })
   account_number_full: string;
 
-  @IsNumber({}, { message: 'Số dư phải là một số' })
-  @Min(0, { message: 'Số dư phải lớn hơn hoặc bằng 0' })
+  @IsNumber({}, { message: 'The balance must be a number.' })
+  @Min(0, { message: 'The balance must be greater than or equal to 0.' })
   balance: number;
 }
 

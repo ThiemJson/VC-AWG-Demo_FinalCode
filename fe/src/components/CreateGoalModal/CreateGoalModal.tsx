@@ -265,7 +265,7 @@ const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
                     disabled={isLoading}
                     className="mr-2"
                   />
-                  <span className="text-gray-700 dark:text-gray-300">Tiết kiệm tổng thể</span>
+                  <span className="text-gray-700 dark:text-gray-300">Overall savings</span>
                 </label>
                 <label className="flex items-center">
                   <input
@@ -280,7 +280,7 @@ const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
                     disabled={isLoading}
                     className="mr-2"
                   />
-                  <span className="text-gray-700 dark:text-gray-300">Giới hạn chi tiêu</span>
+                  <span className="text-gray-700 dark:text-gray-300">Spending limits</span>
                 </label>
               </div>
             </div>

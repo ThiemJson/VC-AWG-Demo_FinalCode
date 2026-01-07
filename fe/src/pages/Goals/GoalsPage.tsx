@@ -89,7 +89,7 @@ const GoalsPage: React.FC = () => {
       <div className="min-h-screen bg-[#F4F5F7] dark:bg-gray-900 p-8">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-[22px] leading-[32px] font-normal text-[#878787] dark:text-gray-400 mb-6">
-            Mục tiêu
+            Goals
           </h1>
           
           {/* Savings Summary Chart - Hiển thị ngay cả khi không có goals */}
@@ -121,10 +121,10 @@ const GoalsPage: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-[22px] leading-[32px] font-normal text-[#878787] dark:text-gray-400">
-            Mục tiêu
+            Goals
           </h1>
           <Button onClick={() => setCreateModalOpen(true)} variant="primary" size="sm">
-            Tạo mục tiêu mới
+            Create New Goal
           </Button>
         </div>
 
@@ -148,7 +148,7 @@ const GoalsPage: React.FC = () => {
                   variant="secondary"
                   size="sm"
                 >
-                  Chỉnh sửa
+                  Edit
                 </Button>
               </div>
 

@@ -376,7 +376,7 @@ const TransactionsPage: React.FC = () => {
                     onClick={handleLoadMore}
                     className="px-6 py-2 bg-[#299D91] text-white rounded hover:bg-[#238a7f] transition-colors text-sm font-medium"
                   >
-                    Tải thêm
+                    Loading More
                   </button>
                 </div>
               )}

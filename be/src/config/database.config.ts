@@ -13,6 +13,12 @@ export default registerAs(
     entities: [__dirname + '/../**/*.entity{.ts,.js}'],
     synchronize: false, // Database đã được tạo sẵn, không tự động sync
     logging: process.env.NODE_ENV === 'development',
+    // SSL cho remote database (Aiven, TiDB, etc.)
+    ...(process.env.DB_SSL === 'true' && {
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    }),
   }),
 );
 

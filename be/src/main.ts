@@ -9,9 +9,7 @@ async function bootstrap() {
 
   // Setup CORS
   app.enableCors({
-    origin: process.env.FRONTEND_URL
-      ? process.env.FRONTEND_URL.split(',')
-      : 'http://localhost:3000',
+    origin: true, // Cho phép tất cả origin (production nên giới hạn)
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
